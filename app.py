@@ -253,3 +253,60 @@ def test_db():
 if __name__ == '__main__':
     app.run(debug=True)
 
+# from flask import Flask, render_template, request, jsonify
+# from flask_mysqldb import MySQL
+# from werkzeug.security import generate_password_hash, check_password_hash
+# import uuid
+# from datetime import datetime
+# import os
+# from dotenv import load_dotenv
+
+# # Load environment variables
+# load_dotenv()
+
+# app = Flask(__name__)
+
+# # Configure MySQL from environment variables
+# app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST', 'localhost')
+# app.config['MYSQL_USER'] = os.getenv('MYSQL_USER', 'root')
+# app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD', '')
+# app.config['MYSQL_DB'] = os.getenv('MYSQL_DB', 'ewaste_db')
+# app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+
+# mysql = MySQL(app)
+
+# @app.route('/request-pickup', methods=['POST'])
+# def request_pickup():
+#     try:
+#         data = request.get_json()
+#         request_id = str(uuid.uuid4())
+        
+#         # Extract form data safely
+#         name = data.get('name')
+#         email = data.get('email')
+#         phone = data.get('phone')
+#         address = data.get('address')
+#         city = data.get('city')
+#         state = data.get('state')
+#         zip_code = data.get('zip_code')
+#         pickup_date = data.get('pickup_date')
+#         item_type = data.get('item_type')
+#         item_description = data.get('item_description')
+        
+#         if not all([name, email, phone, address, city, state, zip_code, pickup_date, item_type, item_description]):
+#             return jsonify({"error": "All fields are required"}), 400
+        
+#         cur = mysql.connection.cursor()
+#         query = '''INSERT INTO pickup_requests (id, name, email, phone, address, city, state, zip_code, pickup_date, item_type, item_description, status, created_at) 
+#                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
+        
+#         cur.execute(query, (request_id, name, email, phone, address, city, state, zip_code, pickup_date, item_type, item_description, 'pending', datetime.now()))
+#         mysql.connection.commit()
+#         cur.close()
+        
+#         return jsonify({"message": "Pickup request submitted successfully", "request_id": request_id}), 201
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
