@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}Request E-Waste Pickup - EcoDispose{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Request E-Waste Pickup</h1>
+        <p>Fill out the form below to schedule a pickup for your electronic waste. 
+           Our team will contact you to confirm the details.</p>
+    </div>
+</section>
+
+<!-- Debug information (only visible in development) -->
+{% if config.DEBUG %}
+<div class="container" style="margin-bottom: 20px;">
+    <div class="alert alert-info">
+        <h4>Debug Information</h4>
+        <p>Today's date: {{ today }}</p>
+        <p>Request method: {{ request.method }}</p>
+        <p>Form data (if POST): {{ request.form }}</p>
+    </div>
+</div>
+{% endif %}
+
+<section class="form-section">
+    <div class="container">
+        <form id="pickup-form" action="{{ url_for('request_pickup') }}" method="POST">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="name">Full Name <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number <span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pickup_date">Preferred Pickup Date <span class="required">*</span></label>
+                    <input type="date" id="pickup_date" name="pickup_date" required min="{{ today }}">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="address">Street Address <span class="required">*</span></label>
+                <input type="text" id="address" name="address" required>
+            </div>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="city">City <span class="required">*</span></label>
+                    <input type="text" id="city" name="city" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="state">State <span class="required">*</span></label>
+                    <input type="text" id="state" name="state" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="zip_code">ZIP Code <span class="required">*</span></label>
+                    <input type="text" id="zip_code" name="zip_code" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="item_type">Type of E-Waste <span class="required">*</span></label>
+                <select id="item_type" name="item_type" required>
+                    <option value="" disabled selected>Select the type of e-waste</option>
+                    <option value="computers">Computers & Laptops</option>
+                    <option value="monitors">Monitors & TVs</option>
+                    <option value="phones">Phones & Tablets</option>
+                    <option value="printers">Printers & Peripherals</option>
+                    <option value="appliances">Small Appliances</option>
+                    <option value="batteries">Batteries</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="item_description">Item Description <span class="required">*</span></label>
+                <textarea id="item_description" name="item_description" rows="4" required 
+                          placeholder="Please describe the items you want to recycle (quantity, condition, etc.)"></textarea>
+                <p class="form-hint">Include the quantity and condition of the items you want to recycle.</p>
+            </div>
+            
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">
+                    I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+                </label>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-block">Submit Request</button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
+{% endblock %}
+

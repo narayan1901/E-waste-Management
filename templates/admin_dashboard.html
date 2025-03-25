@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - EcoDispose{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="dashboard-header">
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <p>Manage e-waste pickup requests and track recycling metrics.</p>
+    </div>
+</section>
+
+<section class="dashboard-content">
+    <div class="container">
+        <div class="dashboard-tabs">
+            <button class="tab-btn active" data-tab="requests">Pickup Requests</button>
+            <button class="tab-btn" data-tab="analytics">Analytics</button>
+        </div>
+        
+        <div class="tab-content active" id="requests-tab">
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <h3>Total Requests</h3>
+                    <div class="stat-value">{{ total }}</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Pending</h3>
+                    <div class="stat-value">{{ counts.pending }}</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Scheduled</h3>
+                    <div class="stat-value">{{ counts.scheduled }}</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Completed</h3>
+                    <div class="stat-value">{{ counts.completed }}</div>
+                </div>
+            </div>
+            
+            <div class="data-table">
+                <h3>Recent Pickup Requests</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Item Type</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if requests %}
+                            {% for request in requests %}
+                                <tr>
+                                    <td>{{ request.name }}</td>
+                                    <td>{{ request.pickup_date }}</td>
+                                    <td>{{ request.item_type }}</td>
+                                    <td>
+                                        <span class="status-badge status-{{ request.status }}">
+                                            {{ request.status }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="dropdown-btn">
+                                                <i class="fas fa-ellipsis-h"></i>
+                                            </button>
+                                            <div class="dropdown-content">
+                                                <a href="#" class="status-update" data-id="{{ request.id }}" data-status="pending">
+                                                    <i class="fas fa-clock"></i> Mark as Pending
+                                                </a>
+                                                <a href="#" class="status-update" data-id="{{ request.id }}" data-status="scheduled">
+                                                    <i class="fas fa-calendar"></i> Mark as Scheduled
+                                                </a>
+                                                <a href="#" class="status-update" data-id="{{ request.id }}" data-status="completed">
+                                                    <i class="fas fa-check-circle"></i> Mark as Completed
+                                                </a>
+                                                <a href="#" class="status-update" data-id="{{ request.id }}" data-status="cancelled">
+                                                    <i class="fas fa-times-circle"></i> Mark as Cancelled
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="no-data">No pickup requests found.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="analytics-tab">
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <h3>Total Items Recycled</h3>
+                    <div class="stat-value">1,234</div>
+                    <div class="stat-trend positive">+12% from last month</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Active Users</h3>
+                    <div class="stat-value">573</div>
+                    <div class="stat-trend positive">+5% from last month</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Pickups Completed</h3>
+                    <div class="stat-value">432</div>
+                    <div class="stat-trend positive">+18% from last month</div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <h3>Recycling Metrics</h3>
+                <div class="chart-placeholder">
+                    <i class="fas fa-chart-bar"></i>
+                    <p>Analytics visualization would appear here in a production environment.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/admin-dashboard.js') }}"></script>
+{% endblock %}
+

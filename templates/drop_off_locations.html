@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}E-Waste Drop-Off Locations - EcoDispose{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/locations.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>E-Waste Drop-Off Locations</h1>
+        <p>Find convenient locations near you to drop off your electronic waste for responsible recycling.</p>
+    </div>
+</section>
+
+<section class="search-section">
+    <div class="container">
+        <div class="search-box">
+            <h2>Find a Location Near You</h2>
+            <div class="search-form">
+                <input type="text" id="location-search" placeholder="Enter your ZIP code or address">
+                <button class="btn btn-primary" id="search-btn">Search</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="locations-section">
+    <div class="container">
+        <div class="locations-list">
+            {% if locations %}
+                {% for location in locations %}
+                    <div class="location-card" data-lat="{{ location.latitude }}" data-lng="{{ location.longitude }}">
+                        <div class="location-header">
+                            <div>
+                                <h3>{{ location.name }}</h3>
+                                <p class="location-address">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    {{ location.address }}, {{ location.city }}, {{ location.state }} {{ location.zip_code }}
+                                </p>
+                            </div>
+                            <span class="distance-badge" id="distance-{{ location.id }}">Calculate distance</span>
+                        </div>
+                        <div class="location-details">
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <div>
+                                        <h4>Hours</h4>
+                                        <p>{{ location.hours }}</p>
+                                    </div>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-phone"></i>
+                                    <div>
+                                        <h4>Phone</h4>
+                                        <p>{{ location.phone }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accepted-items">
+                                <h4>Accepted Items</h4>
+                                <div class="items-tags">
+                                    {% for item in location.accepted_items.split(',') %}
+                                        <span class="item-tag">{{ item }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="location-actions">
+                                <a href="https://maps.google.com/?q={{ location.latitude }},{{ location.longitude }}" 
+                                   target="_blank" class="btn btn-outline btn-sm">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Get Directions
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-locations">
+                    <p>No drop-off locations found. Please try a different search.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="info-section">
+    <div class="container">
+        <h2>Important Information</h2>
+        <ul class="info-list">
+            <li>
+                <div class="info-number">1</div>
+                <p>Some locations may have restrictions on the types or quantities of e-waste they accept.</p>
+            </li>
+            <li>
+                <div class="info-number">2</div>
+                <p>Please remove all personal data from devices before dropping them off.</p>
+            </li>
+            <li>
+                <div class="info-number">3</div>
+                <p>Some locations may charge fees for certain items like TVs or monitors.</p>
+            </li>
+            <li>
+                <div class="info-number">4</div>
+                <p>For large quantities or business e-waste, please contact the location in advance.</p>
+            </li>
+        </ul>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/locations.js') }}"></script>
+{% endblock %}
+

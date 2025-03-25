@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Responsible E-Waste Management for a Greener Future</h1>
+            <p>Properly dispose of your electronic waste with our convenient collection services. 
+               Help protect the environment and recover valuable resources.</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('request_pickup') }}" class="btn btn-primary">Request Pickup <i class="fas fa-arrow-right"></i></a>
+                <a href="{{ url_for('about') }}" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="{{ url_for('static', filename='img/hero-image.jpg') }}" alt="E-waste recycling">
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Our Impact</h2>
+            <p>Together, we're making a difference in reducing electronic waste and protecting our environment.</p>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card" data-count="5420">
+                <div class="stat-icon">
+                    <i class="fas fa-recycle"></i>
+                </div>
+                <div class="stat-count">0</div>
+                <div class="stat-label">Devices Recycled</div>
+            </div>
+            <div class="stat-card" data-count="1250">
+                <div class="stat-icon">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <div class="stat-count">0</div>
+                <div class="stat-label">Pickups Completed</div>
+            </div>
+            <div class="stat-card" data-count="3800">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-count">0</div>
+                <div class="stat-label">Happy Customers</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Our Services</h2>
+            <p>We offer comprehensive e-waste management solutions for individuals and businesses.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Residential Pickup</h3>
+                <p class="service-description">For individuals and households</p>
+                <p>Schedule convenient pickup services for your home electronics, computers, and appliances.</p>
+                <a href="{{ url_for('services') }}#residential" class="service-link">Learn more</a>
+            </div>
+            <div class="service-card">
+                <h3>Business Solutions</h3>
+                <p class="service-description">For companies and organizations</p>
+                <p>Custom e-waste management programs for businesses of all sizes, including secure data destruction.</p>
+                <a href="{{ url_for('services') }}#business" class="service-link">Learn more</a>
+            </div>
+            <div class="service-card">
+                <h3>Drop-off Centers</h3>
+                <p class="service-description">Convenient locations near you</p>
+                <p>Find the nearest e-waste drop-off center in your area for small electronics and batteries.</p>
+                <a href="{{ url_for('drop_off_locations') }}" class="service-link">Find locations</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Ready to Recycle Your E-Waste?</h2>
+        <p>Schedule a pickup today and take the first step towards responsible e-waste disposal.</p>
+        <a href="{{ url_for('request_pickup') }}" class="btn btn-secondary">Schedule Now</a>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/stats-counter.js') }}"></script>
+{% endblock %}
+
