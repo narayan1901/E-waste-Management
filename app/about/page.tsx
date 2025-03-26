@@ -1,21 +1,36 @@
 
- "use client";
+"use client";
 import React, { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 
 const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { theme, systemTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setTimeout(() => setIsVisible(true), 200); // Delayed animation start
+    setMounted(true); // Ensure the component is mounted before rendering theme-dependent UI
   }, []);
 
+  // Prevent hydration mismatch by using the mounted flag
+  const currentTheme = mounted ? (theme === "system" ? systemTheme : theme) : "light";
+
   return (
-    <section className="p-12 bg-gradient-to-b from-green-500 to-gray-900 text-white">
-      <div className={`max-w-5xl mx-auto text-center transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}>
+    <section
+      className={`p-12 transition-colors duration-500 ${
+        currentTheme === "dark" ? "bg-gray-900 text-white" : "bg-green-100 text-gray-900"
+      }`}
+    >
+      <div
+        className={`max-w-5xl mx-auto text-center transition-opacity duration-1000 ${
+          isVisible ? "opacity-100" : "opacity-0"
+        }`}
+      >
         <h2 className="text-4xl font-extrabold">About Us</h2>
         <p className="mt-4 text-lg leading-relaxed">
-          We are committed to reducing electronic waste by providing efficient and sustainable recycling solutions. 
-          Our platform connects individuals and businesses with certified e-waste disposal services, ensuring a 
+          We are committed to reducing electronic waste by providing efficient and sustainable recycling solutions.
+          Our platform connects individuals and businesses with certified e-waste disposal services, ensuring a
           cleaner and greener planet.
         </p>
 
@@ -29,14 +44,16 @@ const AboutSection = () => {
           ].map((item, index) => (
             <div
               key={index}
-              className={`p-6 bg-black shadow-lg rounded-lg text-center border border-gray-700 transform transition-all duration-1000 ease-out ${
-                isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
-              }`}
+              className={`p-6 shadow-lg rounded-lg text-center border transition-all duration-1000 ease-out ${
+                currentTheme === "dark" ? "bg-black border-gray-700" : "bg-white border-gray-300"
+              } transform ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}
               style={{ transitionDelay: `${index * 200}ms` }} // Staggered animation
             >
               <span className="text-5xl">{item.icon}</span>
-              <h3 className="text-xl font-semibold mt-4 text-green-300">{item.title}</h3>
-              <p className="text-gray-400">{item.description}</p>
+              <h3 className={`text-xl font-semibold mt-4 ${currentTheme === "dark" ? "text-green-300" : "text-green-700"}`}>
+                {item.title}
+              </h3>
+              <p className={`${currentTheme === "dark" ? "text-gray-400" : "text-gray-600"}`}>{item.description}</p>
             </div>
           ))}
         </div>
@@ -45,7 +62,11 @@ const AboutSection = () => {
         <div className="mt-10">
           <a
             href="/services"
-            className="inline-block px-6 py-3 text-lg font-semibold text-black bg-green-400 rounded-lg hover:bg-green-500 transition transform hover:scale-105"
+            className="inline-block px-6 py-3 text-lg font-semibold rounded-lg transition transform hover:scale-105"
+            style={{
+              backgroundColor: currentTheme === "dark" ? "#22c55e" : "#10b981",
+              color: currentTheme === "dark" ? "black" : "white",
+            }}
           >
             Learn More
           </a>

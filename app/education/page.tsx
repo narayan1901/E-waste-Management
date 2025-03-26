@@ -265,7 +265,6 @@ export default function EducationPage() {
                 <div className="relative h-[550px] rounded-lg overflow-hidden my-6">
                   <Image
                   src="/recycling-process.jpg"
-                    // src="/placeholder.svg?height"
                     alt="E-waste recycling process"
                     fill
                     className="object-cover"

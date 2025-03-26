@@ -128,7 +128,7 @@ export function RequestPickupForm() {
               <FormItem>
                 <FormLabel>Full Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="John Doe" {...field} />
+                  <Input placeholder="Enter your full name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -142,7 +142,7 @@ export function RequestPickupForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="john.doe@example.com" {...field} />
+                  <Input type="email" placeholder="Enter your email address" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -156,7 +156,7 @@ export function RequestPickupForm() {
               <FormItem>
                 <FormLabel>Phone Number</FormLabel>
                 <FormControl>
-                  <Input placeholder="(123) 456-7890" {...field} />
+                  <Input placeholder="Enter your phone no." {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -205,7 +205,7 @@ export function RequestPickupForm() {
               <FormItem>
                 <FormLabel>Street Address</FormLabel>
                 <FormControl>
-                  <Input placeholder="123 Main St" {...field} />
+                  <Input placeholder="Road-No.,House-No.,Near by Famous place,etc." {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -248,7 +248,7 @@ export function RequestPickupForm() {
                 <FormItem>
                   <FormLabel>ZIP Code</FormLabel>
                   <FormControl>
-                    <Input placeholder="12345" {...field} />
+                    <Input placeholder="Enter your area zip code" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

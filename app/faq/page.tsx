@@ -1,5 +1,7 @@
+
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 
 const faqs = [
   {
@@ -30,31 +32,59 @@ const faqs = [
 
 const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { theme, systemTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Ensure theme is only applied after mounting (prevents hydration mismatch)
+  const currentTheme = mounted ? (theme === "system" ? systemTheme : theme) : "light";
 
   return (
-    <section className="p-12 bg-gray-100 text-gray-800">
+    <section
+      className={`p-12 transition-colors duration-500 ${
+        currentTheme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-800"
+      }`}
+    >
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-4xl font-extrabold text-green-700">Frequently Asked Questions</h2>
-        <p className="text-lg text-gray-600 mt-4">
+        <h2
+          className={`text-4xl font-extrabold ${
+            currentTheme === "dark" ? "text-green-300" : "text-green-700"
+          }`}
+        >
+          Frequently Asked Questions
+        </h2>
+        <p className={`text-lg mt-4 ${currentTheme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
           Find answers to common questions about e-waste recycling and our services.
         </p>
 
         <div className="mt-6 text-left">
           {faqs.map((faq, index) => (
-            <div key={index} className="mb-4 bg-white shadow-md rounded-lg overflow-hidden border border-gray-300">
+            <div
+              key={index}
+              className={`mb-4 shadow-md rounded-lg overflow-hidden border transition-all duration-300 ${
+                currentTheme === "dark" ? "bg-gray-800 border-gray-700" : "bg-white border-gray-300"
+              }`}
+            >
               <button
-                className="w-full flex justify-between items-center p-4 text-left font-semibold text-green-700 focus:outline-none"
-                onClick={() => toggleFAQ(index)}
+                className={`w-full flex justify-between items-center p-4 text-left font-semibold focus:outline-none ${
+                  currentTheme === "dark" ? "text-green-300" : "text-green-700"
+                }`}
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
               >
                 {faq.question}
                 <span>{openIndex === index ? "−" : "+"}</span>
               </button>
               {openIndex === index && (
-                <div className="p-4 border-t border-gray-200 text-gray-700">{faq.answer}</div>
+                <div
+                  className={`p-4 border-t transition-opacity duration-300 ${
+                    currentTheme === "dark" ? "border-gray-600 text-gray-300" : "border-gray-200 text-gray-700"
+                  }`}
+                >
+                  {faq.answer}
+                </div>
               )}
             </div>
           ))}
