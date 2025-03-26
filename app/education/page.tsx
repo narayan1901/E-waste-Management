@@ -32,9 +32,9 @@ export default function EducationPage() {
                   Electronic waste, or e-waste, refers to discarded electrical or electronic devices. Used electronics
                   which are destined for reuse, resale, salvage, recycling, or disposal are also considered e-waste.
                 </p>
-                <div className="relative h-[300px] rounded-lg overflow-hidden my-6">
+                <div className="relative h-[550px] rounded-lg overflow-hidden my-6">
                   <Image
-                    src="/placeholder.svg?height=300&width=700"
+                    src="/e-waste-basic.jpg"
                     alt="Various electronic waste items"
                     fill
                     className="object-cover"
@@ -149,9 +149,9 @@ export default function EducationPage() {
                     recovered and reused.
                   </li>
                 </ul>
-                <div className="relative h-[300px] rounded-lg overflow-hidden my-6">
+                <div className="relative h-[550px] rounded-lg overflow-hidden my-6">
                   <Image
-                    src="/placeholder.svg?height=300&width=700"
+                    src="/environmental impact of e-waste.jpg"
                     alt="Environmental impact of e-waste"
                     fill
                     className="object-cover"
@@ -262,9 +262,10 @@ export default function EducationPage() {
                     in manufacturing.
                   </li>
                 </ol>
-                <div className="relative h-[300px] rounded-lg overflow-hidden my-6">
+                <div className="relative h-[550px] rounded-lg overflow-hidden my-6">
                   <Image
-                    src="/placeholder.svg?height=300&width=700"
+                  src="/recycling-process.jpg"
+                    // src="/placeholder.svg?height"
                     alt="E-waste recycling process"
                     fill
                     className="object-cover"

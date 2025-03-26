@@ -32,9 +32,9 @@ export default function Home() {
                 </Button>
               </div>
             </div>
-            <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden">
+            <div className="relative h-[350px] md:h-[390px] rounded-lg overflow-hidden">
               <Image
-                src="/placeholder.svg?height=400&width=600"
+                src="/e-waste.jpg"
                 alt="E-waste recycling"
                 fill
                 className="object-cover"
